@@ -1,0 +1,52 @@
+<!--
+Goal of this extension: To use external defined modules and create parameteric box...
+
+Main contents:
+    1. One XML file with one ACT object to create tree object.
+    2. One Python file collecting the user inputs and printing it to extension log file.
+
+Documentation References:
+    1. XML Tags > geomtery, XML Tags > extension, XML Tags > script, XML Tags > interface, XML Tags > toolbar & XML Tags > entry in HTML Reference's guide
+	2. XML Tags > simdata, XML Tags > geometry, XML Tags > propertygroup & XML Tags > property in HTML Reference's guide
+	3. API's Discription > IDesignMOdelerDataModel > GeometryBuilder in HTML Reference's guide
+
+Usage instructions:
+    1. Copy this XML and the folder (DMExample3) to %appdata%\Ansys\v145\AdvancedAddinPackage\extension.
+    2. Open the Workbench R15.
+    3. Turn on the Beta options under Tools >> Options >> Appearance
+	4. Load the extension
+    5. Open DesignModeler and use the extension.
+-->
+
+<extension version="1" name="Trap">
+	
+	<guid shortid="BOX_Extension">3e7f7582-a4bf-48b4-a78c-a56ec677efe7</guid>
+	
+	<script src="Trap.py" />
+	
+	<interface context="DesignModeler">
+		<images>images</images>
+		<toolbar name="BOX_Extension" caption="Trapeeze">
+			<entry name="BOX"  icon="box">
+			<callbacks>
+				<onclick>createMyFeature</onclick>
+			</callbacks>
+			</entry>
+		</toolbar>
+	</interface>
+
+	<simdata context="DesignModeler">
+		<geometry name="BoxFeature" caption="Box" icon="box" version="1">
+			<callbacks>
+				<ongenerate>generateBoxGeometry</ongenerate>
+			</callbacks>
+			<!-- property Length can be defined as WB parameter here by adding attribute isparameter -->
+			<property name="LowEdge" caption="LowEdge" unit="Length" control="float" default="0.5[m]" isparameter="true"></property>
+			<property name="HighEdge" caption="HighEdge" unit="Length" control="float" default="1 [m]" ></property> 
+			<property name="High" caption="High" unit="Length" control="float" default="0.5[m]" ></property>		
+			<property name="Sdvig" caption="Sdvig" unit="Length" control="float" default="0.25[m]" ></property>
+			<property name="Width" caption="Width" unit="Length" control="float" default="1[m]" ></property>
+		</geometry>
+	</simdata>
+
+</extension>
